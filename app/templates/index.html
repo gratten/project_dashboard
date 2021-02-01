@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <table class="table table-hover">
+    <h1>Projects</h1>
+        {% for project in projects %}
+                <tr>
+                    <td><a href="{{ url_for('project', jobnum=project.jobnum) }}">{{ project.jobnum }}</a></td>
+                    <td>{{ project.ec_date }}</td>
+                    <td>{{ project.engineer }}</td>
+                </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

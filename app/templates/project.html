@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1>{{ project.jobnum }}</h1>
+    <p>
+        <b>
+            {% for machine in machines %}
+                {% include '_data_machine.html' %}
+            {% endfor %}
+        </b>
+    </p>
+        <table style="width:100%">
+          <tr>
+            <th>Size</th>
+            <th>Speed</th>
+          </tr>
+          <tr>
+            {% for kit in kits %}
+                {% include '_data_kit.html' %}
+            {% endfor %}
+          </tr>
+        </table>
+{% endblock %}

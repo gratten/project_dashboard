@@ -1,0 +1,13 @@
+Tutorials used
+https://www.digitalocean.com/community/tutorials/build-a-crud-web-app-with-python-and-flask-part-one
+https://scotch.io/tutorials/build-a-crud-web-app-with-python-and-flask-part-two
+https://scotch.io/tutorials/build-a-crud-web-app-with-python-and-flask-part-three
+https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iv-database
+
+to do:
+error message when a user tries to add a serial number that already exists
+that said, serial numbers need to be allowed to be entered more than once
+in the case of a new project number with field kits only, shouldn't the user add a machine to the project so that the serial number is referenced?
+when you add a kit, there should be a dialog box to choose a specific serial number, or alternatively apply the kit to all applicable serial numbers for that project
+when you add a machine (serial number) to a job, a boolean should indicate if it is an original machine or referenced machine for a field kit
+in fact, if the serial number already exists then the boolean can default to a referenced machine
