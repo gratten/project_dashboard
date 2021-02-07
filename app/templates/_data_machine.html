@@ -1,8 +1,8 @@
 <tr>
     <td>{{ machine.serialnum }}</td>
-    <td width="10%"><a href="{{ url_for('edit_machine', jobnum=project.jobnum, id=machine.id) }}" class="btn btn-default pull-right">Edit</a></td>
+    <td width="10%"><a href="{{ url_for('main.edit_machine', jobnum=project.jobnum, id=machine.id) }}" class="btn btn-default pull-right">Edit</a></td>
     <td width="10%">
-        <form action="{{url_for('delete_machine', jobnum = project.jobnum, id = machine.id)}}" method="post">
+        <form action="{{url_for('main.delete_machine', jobnum = project.jobnum, id = machine.id)}}" method="post">
             <input type="hidden" name="_method" value="DELETE">
             <input type="submit" value="Delete" class="btn btn-danger">
     </td></tr>

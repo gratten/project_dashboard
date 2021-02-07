@@ -1,15 +1,16 @@
-from app import app, db
+from app import db
 from flask import render_template, flash, redirect, url_for, request
-from app.forms import AddProjectForm, AddMachineForm, AddKitForm, AddTaskForm
+from app.main.forms import AddProjectForm, AddMachineForm, AddKitForm, AddTaskForm
 from app.models import Project, Machine, Kit, Task
+from app.main import bp
 
-@app.route('/')
-@app.route('/index')
+@bp.route('/')
+@bp.route('/index')
 def index():
     projects = Project.query.all()
     return render_template('index.html', title='Home', projects=projects)
 
-@app.route('/<jobnum>')
+@bp.route('/<jobnum>')
 def project(jobnum):
     project = Project.query.filter_by(jobnum=jobnum).first_or_404()
     machines = project.machines.all()
@@ -17,7 +18,7 @@ def project(jobnum):
     tasks = project.tasks.all()
     return render_template('project.html', project=project, machines=machines, kits=kits, tasks=tasks)
 
-@app.route('/add_project', methods=['GET', 'POST'])
+@bp.route('/add_project', methods=['GET', 'POST'])
 def add_project():
     form = AddProjectForm()
     if form.validate_on_submit():
@@ -27,10 +28,10 @@ def add_project():
         db.session.add(project)
         db.session.commit()
         flash('Project added')
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
     return render_template('add_project.html', form=form)
 
-@app.route('/<jobnum>/add_machine', methods=['GET', 'POST'])
+@bp.route('/<jobnum>/add_machine', methods=['GET', 'POST'])
 def add_machine(jobnum):
     form = AddMachineForm()
     # test = test_var
@@ -45,7 +46,7 @@ def add_machine(jobnum):
         return redirect('/' + jobnum)
     return render_template('add_machine.html', form=form, jobnum=jobnum)
 
-@app.route('/<jobnum>/edit_machine/<string:id>', methods=['GET', 'POST'])
+@bp.route('/<jobnum>/edit_machine/<string:id>', methods=['GET', 'POST'])
 def edit_machine(jobnum, id):
     form = AddMachineForm()
     m = Machine.query.filter_by(id=id).first_or_404()
@@ -60,7 +61,7 @@ def edit_machine(jobnum, id):
         return redirect('/' + jobnum)
     return render_template('edit_machine.html', form=form, jobnum=jobnum)
 
-@app.route('/<jobnum>/delete_machine/<string:id>', methods=['POST'])
+@bp.route('/<jobnum>/delete_machine/<string:id>', methods=['POST'])
 def delete_machine(jobnum, id):
     m = Machine.query.filter_by(id=id).first_or_404()
     db.session.delete(m)
@@ -68,7 +69,7 @@ def delete_machine(jobnum, id):
     flash('Machine deleted')
     return redirect('/' + jobnum)
 
-@app.route('/<jobnum>/add_kit', methods=['GET', 'POST'])
+@bp.route('/<jobnum>/add_kit', methods=['GET', 'POST'])
 def add_kit(jobnum):
     form = AddKitForm()
     p = Project.query.filter_by(jobnum=jobnum).first_or_404()
@@ -84,7 +85,7 @@ def add_kit(jobnum):
         return redirect('/' + jobnum)
     return render_template('add_kit.html', form=form, jobnum=jobnum)
 
-@app.route('/<jobnum>/edit_kit/<string:id>', methods=['GET', 'POST'])
+@bp.route('/<jobnum>/edit_kit/<string:id>', methods=['GET', 'POST'])
 def edit_kit(jobnum, id):
     form = AddKitForm()
     k = Kit.query.filter_by(id=id).first_or_404()
@@ -105,7 +106,7 @@ def edit_kit(jobnum, id):
         return redirect('/' + jobnum)
     return render_template('edit_kit.html', form=form, jobnum=jobnum)
 
-@app.route('/<jobnum>/delete_kit/<string:id>', methods=['POST'])
+@bp.route('/<jobnum>/delete_kit/<string:id>', methods=['POST'])
 def delete_kit(jobnum, id):
     k = Kit.query.filter_by(id=id).first_or_404()
     db.session.delete(k)
@@ -113,7 +114,7 @@ def delete_kit(jobnum, id):
     flash('Kit deleted')
     return redirect('/' + jobnum)
 
-@app.route('/<jobnum>/add_task', methods=['GET', 'POST'])
+@bp.route('/<jobnum>/add_task', methods=['GET', 'POST'])
 def add_task(jobnum):
     form = AddTaskForm()
     p = Project.query.filter_by(jobnum=jobnum).first_or_404()
@@ -127,7 +128,7 @@ def add_task(jobnum):
         return redirect('/' + jobnum)
     return render_template('add_task.html', form=form, jobnum=jobnum)
 
-@app.route('/<jobnum>/edit_task/<string:id>', methods=['GET', 'POST'])
+@bp.route('/<jobnum>/edit_task/<string:id>', methods=['GET', 'POST'])
 def edit_task(jobnum, id):
     form = AddTaskForm()
     t = Task.query.filter_by(id=id).first_or_404()
@@ -144,7 +145,7 @@ def edit_task(jobnum, id):
         return redirect('/' + jobnum)
     return render_template('edit_task.html', form=form, jobnum=jobnum)
 
-@app.route('/<jobnum>/delete_task/<string:id>', methods=['POST'])
+@bp.route('/<jobnum>/delete_task/<string:id>', methods=['POST'])
 def delete_task(jobnum, id):
     t = Task.query.filter_by(id=id).first_or_404()
     db.session.delete(t)

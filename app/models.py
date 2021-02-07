@@ -38,6 +38,7 @@ class Kit(db.Model):
         return f'<Kit {self.length}x{self.width}x{self.depth}>'
 
 class Task(db.Model):
+    __searchable__ = ['task']
     id = db.Column(db.Integer, primary_key=True)
     task = db.Column(db.String(500))
     engineer = db.Column(db.String(24))
