@@ -21,7 +21,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="{{ url_for('add_machine', jobnum=project.jobnum) }}">Add Machine</a></li>
                         <li><a href="{{ url_for('add_kit', jobnum=project.jobnum) }}">Add Kit</a></li>
-                        <li><a href="{{ url_for('index') }}">Add Task</a></li>
+                        <li><a href="{{ url_for('add_task', jobnum=project.jobnum) }}">Add Task</a></li>
                     </ul>
                 </div>
             {% else %}
@@ -39,13 +39,11 @@
 {% block content %}
     <div class="container">
         {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
         {% endwith %}
 
         {# application content needs to be provided in the app_content block #}

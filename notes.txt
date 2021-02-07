@@ -11,3 +11,6 @@ in the case of a new project number with field kits only, shouldn't the user add
 when you add a kit, there should be a dialog box to choose a specific serial number, or alternatively apply the kit to all applicable serial numbers for that project
 when you add a machine (serial number) to a job, a boolean should indicate if it is an original machine or referenced machine for a field kit
 in fact, if the serial number already exists then the boolean can default to a referenced machine
+
+> implement login functionality
+    > view only version available to non logged in users

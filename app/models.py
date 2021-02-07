@@ -8,7 +8,7 @@ class Project(db.Model):
     engineer = db.Column(db.String(24))
     machines = db.relationship('Machine', backref='job', lazy='dynamic')
     kits = db.relationship('Kit', backref='job', lazy='dynamic')
-
+    tasks = db.relationship('Task', backref='job', lazy='dynamic')
 
     def __repr__(self):
         return f'<Project {self.jobnum}>'
@@ -36,3 +36,12 @@ class Kit(db.Model):
 
     def __repr__(self):
         return f'<Kit {self.length}x{self.width}x{self.depth}>'
+
+class Task(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    task = db.Column(db.String(500))
+    engineer = db.Column(db.String(24))
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
+
+    def __repr__(self):
+        return f'<Task {self.engineer}>'

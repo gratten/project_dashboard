@@ -30,3 +30,8 @@ class AddKitForm(FlaskForm):
     speed = IntegerField('Speed', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+class AddTaskForm(FlaskForm):
+    task = StringField('Task', validators=[DataRequired()])
+    engineer = StringField('Engineer', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+

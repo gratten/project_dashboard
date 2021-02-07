@@ -1,0 +1,12 @@
+<tr>
+    <td>{{ task.task }}</td>
+    <td>{{ task.engineer }}</td>
+<!--    <td width="10%"><a href="edit_task/{{task.id}}, id=task.id" class="btn btn-default pull-right">Edit</a></td>-->
+    <td width="10%"><a href="{{ url_for('edit_task', jobnum=project.jobnum, id=task.id) }}" class="btn btn-default pull-right">Edit</a></td>
+    <td width="10%">
+        <form action="{{url_for('delete_task', jobnum = project.jobnum, id = task.id)}}" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="Delete" class="btn btn-danger">
+    </td>
+</tr>
+
